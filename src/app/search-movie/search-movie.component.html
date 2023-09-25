@@ -1,0 +1,36 @@
+<form (ngSubmit)="movieForm.valid && onSubmit()" [formGroup]="movieForm" #myForm="ngForm">   
+    <ng-container formGroupName="movieRef">
+        <div>
+            <label for="id-movie">Identifiant</label><br>
+            <input name="id-movie" type="text" formControlName="id">
+        </div>
+        <div>
+            <label for="title-order">Titre</label><br>
+            <input name="title-order" type="text" formControlName="title">
+        </div>
+        <span *ngIf="movieForm.controls.movieRef.errors?.['isRequired'] && myForm.submitted" >{{movieForm.controls.movieRef.errors?.['isRequired'].errorMsg}}</span>
+    </ng-container>
+    <div>
+      <label for="type-movie">Type</label><br>
+      <select name="type-movie" formControlName="type" size="3">  
+        <option value="film"> Film </option>  
+        <option value="series"> Série </option>  
+        <option value="episode"> Episode </option>    
+      </select>  
+    </div>    
+    <div>
+      <label for="date-movie">Année de sortie</label><br>
+      <input name="date-movie" type="number" formControlName="releaseYear">      
+    </div>    
+    <span *ngIf="movieForm.controls.releaseYear.errors?.['required'] && myForm.submitted">L'année de sortie est requise</span>
+      <span *ngIf="movieForm.controls.releaseYear.errors?.['min'] && myForm.submitted">L'année doit être comprise entre {{movieForm.controls.releaseYear.errors?.['min'].minValue}} et {{movieForm.controls.releaseYear.errors?.['min'].maxValue}}</span>
+    <div *ngIf="movieForm.value.movieRef.id">
+      <label for="fiche-movie">Fiche</label><br>
+      <select name="fiche-movie" formControlName="fiche" size="2">  
+        <option value="complète"> complète </option>  
+        <option value="courte"> courte </option>            
+      </select>
+    </div>      
+    <button type="reset">Restaurer</button>
+    <button type="submit">Sauvegarder</button>
+  </form>
